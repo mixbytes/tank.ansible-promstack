@@ -1,0 +1,21 @@
+global:
+  scrape_interval:     {{ scrape_interval | default('15s') }}
+  evaluation_interval: {{ evaluation_interval | default('15s') }}
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: {{ prometheus_static_targets | to_json }}
+
+{% for item in prometheus_targets %}
+  - job_name: '{{ item.jobname }}'
+    scrape_interval: {{ item.scrape_interval | default('15s') }}
+    metrics_path: {{ item.metrics_path | default('/metrics') }}
+    static_configs:
+    - targets: ['{{ item.host }}:{{ item.port}}']
+
+{% endfor %}
+  - job_name: additional targets
+    file_sd_configs:
+    - files:
+      - "/etc/prometheus/targets/*.yml"

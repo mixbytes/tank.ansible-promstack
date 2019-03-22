@@ -1,0 +1,25 @@
+---
+- name: launch cadvisor container
+  become: true
+  docker_container:
+    image: "google/cadvisor:{{ cadvisor_version }}"
+    name: cadvisor
+    privileged: true
+    volumes:
+      - "/:/rootfs:ro"
+      - "/var/run:/var/run:rw"
+      - "/sys:/sys:ro"
+      - "/var/lib/docker/:/var/lib/docker:ro"
+      - "/cgroup:/cgroup:ro"
+    network_mode: host
+    command: "{{ cavdisor_args }}"
+    restart_policy: always
+    state: started
+
+- name: check cadvisor api works
+  uri:
+    url: http://localhost:{{ cadvisor_port }}
+    method: GET
+    status_code: 200
+  retries: 10
+  delay: 3

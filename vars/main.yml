@@ -1,0 +1,8 @@
+---
+prometheus_config_path: /etc/prometheus
+grafana_config_path: /etc/grafana
+prometheus_port: 9090
+node_exporter_port: 9100
+push_gateway_port: 9091
+cadvisor_port: 8080
+grafana_port: 3000

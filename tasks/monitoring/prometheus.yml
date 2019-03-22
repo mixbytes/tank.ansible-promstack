@@ -1,0 +1,45 @@
+---
+- name: create prometheus config dir
+  file:
+    path: "{{ prometheus_config_path }}"
+    state: directory
+
+- name: set prometheus config
+  template:
+    src: configs/prometheus/prometheus.yml.j2
+    dest: "{{ prometheus_config_path }}/prometheus.yml"
+    force: yes
+  register: prometheus_configuration
+
+- name: create docker network
+  become: yes
+  docker_network:
+    name: "{{ prometheus_docker_network }}"
+    state: present
+
+- name: launch docker prometheus
+  become: yes
+  docker_container:
+    command: >
+      --config.file=/etc/prometheus/prometheus.yml
+      --storage.tsdb.path=/prometheus
+      --web.console.libraries=/usr/share/prometheus/console_libraries
+      --web.console.templates=/usr/share/prometheus/consoles
+      {{ prometheus_additional_command_args }}
+    image: prom/prometheus:{{ prometheus_version }}
+    name: prometheus
+    detach: true
+    network_mode: host
+    recreate: "{{ prometheus_configuration.changed }}"
+    restart_policy: always
+    state: started
+    volumes:
+      - /etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+
+- name: check prometheus api works
+  uri:
+    url: http://localhost:{{ prometheus_port }}
+    method: GET
+    status_code: [200, 405]
+  retries: 10
+  delay: 3
