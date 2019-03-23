@@ -34,3 +34,10 @@ cavdisor_args: ""
 grafana_version: 6.0.2
 grafana_admin_user: admin
 grafana_admin_password: admin
+
+# Global installtation variables
+install_cadvisor: true
+install_exporter: true
+install_gateway: true
+install_prometheus: true
+install_grafana: true

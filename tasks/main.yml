@@ -1,16 +1,23 @@
 ---
+
+
 - name: Install prometheus
   include_tasks: "monitoring/prometheus.yml"
+  when: install_prometheus
 
 - name: Install node-exporter
   include_tasks: "monitoring/exporter.yml"
+  when: install_exporter
 
 - name: Install push-gateway
   include_tasks: "monitoring/gateway.yml"
+  when: install_gateway
 
 - name: Install cadvisor
   include_tasks: "monitoring/cadvisor.yml"
+  when: install_cadvisor
 
 # TODO: Autoconfig and import dashboard with sources
 # - name: Install grafana
 #   include_tasks: "monitoring/grafana.yml"
+# when: install_grafana
