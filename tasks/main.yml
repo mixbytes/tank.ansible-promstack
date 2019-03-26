@@ -18,6 +18,6 @@
   when: install_cadvisor
 
 # TODO: Autoconfig and import dashboard with sources
-# - name: Install grafana
-#   include_tasks: "monitoring/grafana.yml"
-# when: install_grafana
+- name: Install grafana
+  include_tasks: "monitoring/grafana.yml"
+  when: install_grafana
