@@ -1,8 +1,11 @@
 ---
 - name: create prometheus config dir
   file:
-    path: "{{ prometheus_config_path }}"
+    path: "{{ item }}"
     state: directory
+  with_items:
+    - "/etc/prometheus/targets"
+    - "{{ prometheus_config_path }}"
 
 - name: set prometheus config
   template:
@@ -35,6 +38,7 @@
     state: started
     volumes:
       - /etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - /etc/prometheus/targets/:/etc/prometheus/targets/:ro
 
 - name: check prometheus api works
   uri:
