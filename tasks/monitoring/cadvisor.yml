@@ -1,5 +1,5 @@
 ---
-- name: launch cadvisor container
+- name: Launch cadvisor container
   become: true
   docker_container:
     image: "google/cadvisor:{{ cadvisor_version }}"
@@ -16,7 +16,7 @@
     restart_policy: always
     state: started
 
-- name: check cadvisor api works
+- name: Check cadvisor API works
   uri:
     url: http://localhost:{{ cadvisor_port }}
     method: GET

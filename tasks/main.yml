@@ -1,6 +1,4 @@
 ---
-
-
 - name: Install prometheus
   include_tasks: "monitoring/prometheus.yml"
   when: install_prometheus

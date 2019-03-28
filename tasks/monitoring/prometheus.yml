@@ -1,5 +1,5 @@
 ---
-- name: create prometheus config dir
+- name: Create prometheus config dir
   file:
     path: "{{ item }}"
     state: directory
@@ -7,7 +7,7 @@
     - "/etc/prometheus/targets"
     - "{{ prometheus_config_path }}"
 
-- name: set prometheus config
+- name: Set prometheus config
   template:
     src: configs/prometheus/prometheus.yml.j2
     dest: "{{ prometheus_config_path }}/prometheus.yml"
@@ -20,7 +20,7 @@
     name: "{{ prometheus_docker_network }}"
     state: present
 
-- name: launch docker prometheus
+- name: Launch docker prometheus
   become: yes
   docker_container:
     command: >
@@ -40,7 +40,7 @@
       - /etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - /etc/prometheus/targets/:/etc/prometheus/targets/:ro
 
-- name: check prometheus api works
+- name: Check prometheus API works
   uri:
     url: http://localhost:{{ prometheus_port }}
     method: GET

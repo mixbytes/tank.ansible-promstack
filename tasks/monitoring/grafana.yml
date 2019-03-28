@@ -1,10 +1,10 @@
 ---
-- name: copy configs
+- name: Copy configs
   copy: 
     src: grafana
     dest: /etc
 
-- name: launch grafana prometheus
+- name: Launch grafana prometheus
   become: yes
   docker_container:
     image: grafana/grafana:{{ grafana_version }}

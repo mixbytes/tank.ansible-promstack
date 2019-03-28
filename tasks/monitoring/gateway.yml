@@ -1,5 +1,5 @@
 ---
-- name: launch prometheus push gateway
+- name: Launch prometheus push gateway
   become: true
   docker_container:
     name: push-gateway
@@ -10,7 +10,7 @@
     restart_policy: always
     state: started
 
-- name: check gateway api works
+- name: Check gateway API works
   uri:
     url: http://localhost:{{ push_gateway_port }}
     method: GET

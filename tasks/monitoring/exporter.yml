@@ -1,5 +1,5 @@
 ---
-- name: launch node-exporter container
+- name: Launch node-exporter container
   become: true
   docker_container:
     name: node-exporter
@@ -15,7 +15,7 @@
       - /sys:/host/sys:ro
       - /:/rootfs:ro
 
-- name: check node-exporter api works
+- name: Check node-exporter API works
   uri:
     url: http://localhost:{{ node_exporter_port }}
     method: GET
