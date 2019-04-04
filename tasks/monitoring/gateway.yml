@@ -15,5 +15,5 @@
     url: http://localhost:{{ push_gateway_port }}
     method: GET
     status_code: 200
-  retries: 10
-  delay: 3
+  retries: 15
+  delay: 5

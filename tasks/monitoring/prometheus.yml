@@ -11,17 +11,17 @@
   template:
     src: configs/prometheus/prometheus.yml.j2
     dest: "{{ prometheus_config_path }}/prometheus.yml"
-    force: yes
+    force: true
   register: prometheus_configuration
 
 - name: create docker network
-  become: yes
+  become: true
   docker_network:
     name: "{{ prometheus_docker_network }}"
     state: present
 
 - name: Launch docker prometheus
-  become: yes
+  become: true
   docker_container:
     command: >
       --config.file=/etc/prometheus/prometheus.yml
@@ -45,5 +45,5 @@
     url: http://localhost:{{ prometheus_port }}
     method: GET
     status_code: [200, 405]
-  retries: 10
-  delay: 3
+  retries: 15
+  delay: 5
