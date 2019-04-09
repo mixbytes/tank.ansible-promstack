@@ -1,9 +1,4 @@
 ---
-- name: Copy configs
-  copy:
-    src: grafana
-    dest: /etc
-
 - name: Launch grafana prometheus
   become: true
   docker_container:

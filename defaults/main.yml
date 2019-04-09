@@ -11,8 +11,8 @@ prometheus_sd_targets: []
 prometheus_static_targets:
   - 'localhost:9090'
 
-scrape_interval: 15s
-evaluation_interval: 15s
+scrape_interval: 5s
+evaluation_interval: 5s
 
 # Node exporter
 node_exporter_version: v0.17.0
@@ -33,7 +33,7 @@ cavdisor_args: ""
 # Grafana
 grafana_version: 6.0.2
 grafana_admin_user: admin
-grafana_admin_password: admin
+grafana_admin_password: samplepassword
 
 # Global installtation variables
 install_cadvisor: true

@@ -1,6 +1,6 @@
 global:
-  scrape_interval:     {{ scrape_interval | default('15s') }}
-  evaluation_interval: {{ evaluation_interval | default('15s') }}
+  scrape_interval:     {{ scrape_interval | default('5s') }}
+  evaluation_interval: {{ evaluation_interval | default('5s') }}
 
 scrape_configs:
   - job_name: 'prometheus'
@@ -9,7 +9,7 @@ scrape_configs:
 
 {% for item in prometheus_targets %}
   - job_name: '{{ item.jobname }}'
-    scrape_interval: {{ item.scrape_interval | default('15s') }}
+    scrape_interval: {{ item.scrape_interval | default('5s') }}
     metrics_path: {{ item.metrics_path | default('/metrics') }}
     static_configs:
     - targets: ['{{ item.host }}:{{ item.port}}']

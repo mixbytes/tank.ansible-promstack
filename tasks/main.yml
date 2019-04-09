@@ -15,7 +15,10 @@
   include_tasks: "monitoring/cadvisor.yml"
   when: install_cadvisor
 
-# TODO: Autoconfig and import dashboard with sources
 - name: Install grafana
-  include_tasks: "monitoring/grafana.yml"
+  include_tasks: "monitoring/{{ item }}"
   when: install_grafana
+  with_items:
+    - "grafana.yml"
+    - "grafana.postinstall.yml"
+
