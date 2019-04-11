@@ -16,9 +16,5 @@
   when: install_cadvisor
 
 - name: Install grafana
-  include_tasks: "monitoring/{{ item }}"
+  include_tasks: "monitoring/grafana.yml"
   when: install_grafana
-  with_items:
-    - "grafana.yml"
-    - "grafana.postinstall.yml"
-
