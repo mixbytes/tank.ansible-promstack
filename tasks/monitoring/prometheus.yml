@@ -1,11 +1,13 @@
 ---
 - name: Create prometheus config dir
   file:
-    path: "{{ item }}"
+    path: "{{ dir }}"
     state: directory
   with_items:
     - "/etc/prometheus/targets"
     - "{{ prometheus_config_path }}"
+  loop_control:
+    loop_var: dir
 
 - name: Set prometheus config
   template:

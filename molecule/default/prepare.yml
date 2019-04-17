@@ -1,23 +1,47 @@
 ---
-- name: Prepare 1
+- name: Get ansible_python_interpreter
   hosts: all
   become: true
   gather_facts: false
   tasks:
-    - name: Install python for Ansible
-      raw: bash -c "test -e /usr/bin/python || (apt -qqy update && apt install -qqy python-minimal)"
-      register: output
-      changed_when:
-        - output.stdout != ""
-        - output.stdout != "\r\n"
-    - name: Gathering Facts
-      setup:
+    - debug:
+        msg: "{{ ansible_python_interpreter }}"
 
-- name: Prepare 2
+- name: Prepare 1 (Python 2)
+  hosts: all
+  become: true
+  gather_facts: false
+  tasks:
+    - block:
+      - name: Install python2 for Ansible
+        raw: bash -c "test -e /usr/bin/python || (apt -qqy update && apt install -qqy python-minimal)"
+        register: output
+        changed_when:
+          - output.stdout != ""
+          - output.stdout != "\r\n"
+      - name: Gathering Facts
+        setup:
+      when: ansible_python_interpreter == "/usr/bin/python"
+
+- name: Prepare 2 (pip3 install if not)
+  hosts: all
+  become: true
+  gather_facts: false
+  tasks:
+    - block:
+      - name: Install python3-pip
+        action: >
+          {{ ansible_pkg_mgr }} name=python3-pip state=present update_cache=yes
+      - name: Gathering Facts
+        setup:
+      when: ansible_python_interpreter == "/usr/bin/python3"
+
+- name: Prepare 3
   hosts: all
   become: true
   gather_facts: true
   vars:
+    pip_executable: "{% if ansible_python_interpreter == \"/usr/bin/python3\" %}pip3{% else %}pip{% endif %}"
     pip_install_packages:
       - name: docker
   roles:

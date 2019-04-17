@@ -32,6 +32,10 @@ provisioner:
       ssh_args: -o ControlPersist=6000s -o ControlMaster=auto -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
   lint:
     name: ansible-lint
+  inventory:
+    host_vars:
+      ubuntu1804-promstack:
+        ansible_python_interpreter: "/usr/bin/python"
 scenario:
   name: default
 verifier:

@@ -1,4 +1,7 @@
 ---
+# Global
+ansible_python_interpreter: "/usr/bin/python"
+
 # Prometheus
 prometheus_version: v2.8.0
 
