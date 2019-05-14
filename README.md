@@ -1,4 +1,29 @@
-Ansible Prom Stack
+[![Build Status](https://travis-ci.org/mixbytes/tank.ansible-promstack.svg?branch=master)](https://travis-ci.org/mixbytes/tank.ansible-promstack)
+
+Role Name
 =========
 
-Role needed for install all Prometheus stack (CAdvisor + Node Exporter + Push Gateway + Prometheus + Grafana)
+
+Requirements
+------------
+
+
+Role Variables
+--------------
+
+
+Dependencies
+------------
+
+
+Example Playbook
+----------------
+
+License
+-------
+
+Apache 2.0
+
+Author Information
+------------------
+
