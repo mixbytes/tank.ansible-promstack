@@ -1,20 +1,20 @@
 ---
 - name: Install prometheus
   include_tasks: "monitoring/prometheus.yml"
-  when: install_prometheus
+  when: install_prometheus|bool
 
 - name: Install node-exporter
   include_tasks: "monitoring/exporter.yml"
-  when: install_exporter
+  when: install_exporter|bool
 
 - name: Install push-gateway
   include_tasks: "monitoring/gateway.yml"
-  when: install_gateway
+  when: install_gateway|bool
 
 - name: Install cadvisor
   include_tasks: "monitoring/cadvisor.yml"
-  when: install_cadvisor
+  when: install_cadvisor|bool
 
 - name: Install grafana
   include_tasks: "monitoring/grafana.yml"
-  when: install_grafana
+  when: install_grafana|bool
