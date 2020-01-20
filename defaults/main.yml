@@ -1,6 +1,6 @@
 ---
 # Prometheus
-prometheus_version: v2.8.0
+prometheus_version: v2.13.0
 
 prometheus_additional_command_args: ''
 prometheus_docker_network: prometheus
@@ -10,6 +10,12 @@ prometheus_sd_targets: []
 
 prometheus_static_targets:
   - 'localhost:9090'
+
+prometheus_alertmanagers: []
+# - scheme: http
+#   static_configs:
+#   - targets:
+#     - 'localhost:9093'
 
 scrape_interval: 5s
 evaluation_interval: 5s
