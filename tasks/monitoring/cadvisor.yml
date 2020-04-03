@@ -25,3 +25,4 @@
   until: httpresponse.status == 200
   retries: 15
   delay: 5
+  ignore_errors: '{{ ansible_check_mode }}'
