@@ -38,7 +38,9 @@
     state: started
     volumes:
       - /etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
-      - /etc/prometheus/targets/:/etc/prometheus/targets/:ro
+      - /etc/prometheus/targets:/etc/prometheus/targets/:ro
+      - /etc/prometheus/alerts/:/etc/prometheus/alerts/:ro
+      - /opt/prometheus/data/prometheus:/prometheus:rw
 
 - name: Check prometheus API works
   uri:

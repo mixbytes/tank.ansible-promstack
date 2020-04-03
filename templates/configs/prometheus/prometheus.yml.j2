@@ -19,3 +19,13 @@ scrape_configs:
     file_sd_configs:
     - files:
       - "/etc/prometheus/targets/*.yml"
+
+rule_files:
+  - /etc/prometheus/alerts/*.rules
+
+{% if prometheus_alertmanagers | length > 0 %}
+alerting:
+  alertmanagers:
+  {{ prometheus_alertmanagers | to_nice_yaml(indent=2) | indent(2, False) }}
+{% endif %}
+
