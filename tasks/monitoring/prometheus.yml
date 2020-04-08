@@ -3,11 +3,9 @@
   file:
     path: "{{ item }}"
     state: directory
-    mode: '0777'
   with_items:
     - "/etc/prometheus/targets"
     - "{{ prometheus_config_path }}"
-    - "/opt/prometheus/data/"
 
 - name: Set prometheus config
   template:
@@ -38,6 +36,7 @@
     recreate: "{{ prometheus_configuration.changed }}"
     restart_policy: always
     state: started
+    user: 0:0
     volumes:
       - /etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - /etc/prometheus/targets:/etc/prometheus/targets/:ro
